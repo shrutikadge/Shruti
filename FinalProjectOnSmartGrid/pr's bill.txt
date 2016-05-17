@@ -1,0 +1,5 @@
+Your bill for the transaction
+Name: pr
+Product: Wind
+Total Amount: 44
+Total Quantity: 2
