@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/HotelManagement</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">mikado</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<!--<property name="hbm2ddl.auto">create</property>-->
+		<property name="show_sql">true</property>
+		<mapping resource="Room.hbm.xml"/>
+		<!--<class-cache class="org.hibernate.test.legacy.Simple" region="Simple" usage="read-write"/>-->
+	</session-factory>
+</hibernate-configuration>
