@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <style>
+    body {
+    padding-top: 65px;
+}
+    </style>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    
+    <title>Movie Reservation Status</title>
+    
+    <base href="/"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
+</head>
+
+<body class="pt-5">
+   <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="reservations">Paramount Theater Ticket Reservations</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+           <li><a href="/reservations"><span class="glyphicon glyphicon-user"></span> login</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container unauthenticated">
+    Hello! Please login using the top-right button to view registration statuses at Paramount theater!
+</div>
+<div class="container authenticated" style="display:none">
+    Logged in as: <span id="user"></span>
+  <!--<div>
+    <button onClick="logout()" class="btn btn-primary">Logout</button>
+  </div>-->
+</div>
+     
+<footer class="footer navbar-inverse navbar-fixed-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"><p class="text-muted">@Copyright 2017</p></div>
+        </div>
+    </div>
+</footer>
+    
+ <script type="text/javascript">
+    $.get("/user", function(data) {
+        $("#user").html(data.userAuthentication.details.name);
+        $(".unauthenticated").hide()
+        $(".authenticated").show()
+    });
+    
+    var logout = function() {
+        $.post("/logout", function() {
+            $("#user").html('');
+            $(".unauthenticated").show();
+            $(".authenticated").hide();
+        })
+        return true;
+    }
+    
+    $.ajaxSetup({
+    	beforeSend : function(xhr, settings) {
+    	  if (settings.type == 'POST' || settings.type == 'PUT'
+    	      || settings.type == 'DELETE') {
+    	    if (!(/^http:.*/.test(settings.url) || /^https:.*/
+    	        .test(settings.url))) {
+    	      // Only send the token to relative URLs i.e. locally.
+    	      xhr.setRequestHeader("X-XSRF-TOKEN",
+    	          Cookies.get('XSRF-TOKEN'));
+    	    }
+    	  }
+    	}
+    	});
+</script>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
